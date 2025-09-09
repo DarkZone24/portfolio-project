@@ -19,6 +19,17 @@
             overflow-x: hidden;
         }
 
+        @keyframes fadeIn {
+            from {
+        opacity: 0;
+        transform: translateY(-15px);
+                }
+            to {
+        opacity: 1;
+        transform: translateY(0);
+                 }
+        }
+
         /* Enhanced Navbar */
         .navbar {
             position: fixed;
@@ -31,6 +42,7 @@
             border-bottom: 1px solid rgba(0, 171, 240, 0.1);
             z-index: 1000;
             transition: all 0.3s ease;
+            animation: fadeIn 0.8s ease forwards;
         }
 
         .navbar-content {
@@ -47,6 +59,7 @@
             gap: 15px;
             text-decoration: none;
             color: #00abf0;
+            animation: fadeIn 1s ease forwards;
         }
 
         .logo i {
@@ -71,7 +84,16 @@
 
         .nav-menu li {
             position: relative;
+            animation: fadeIn 0.8s ease forwards;
+            opacity: 0;
         }
+
+        .nav-menu li:nth-child(1) { animation-delay: 0.5s; }
+        .nav-menu li:nth-child(2) { animation-delay: 0.7s; }
+        .nav-menu li:nth-child(3) { animation-delay: 0.9s; }
+        .nav-menu li:nth-child(4) { animation-delay: 1.1s; }
+        .nav-menu li:nth-child(5) { animation-delay: 1.3s; }
+        .nav-menu li:nth-child(6) { animation-delay: 1.5s; }
 
         .nav-menu a {
             color: #ffffff;
@@ -102,6 +124,59 @@
 
         .nav-menu a:hover,
         .nav-menu a.active {
+            color: #00abf0;
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: rgba(15, 15, 35, 0.98);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(0, 171, 240, 0.1);
+            transform: translateY(-10px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu.active {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+            padding: 20px 0;
+        }
+
+        .mobile-menu a {
+            display: block;
+            padding: 15px 50px;
+            color: #ffffff;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu a:hover,
+        .mobile-menu a.active {
+            background: rgba(0, 171, 240, 0.1);
             color: #00abf0;
         }
 
@@ -181,6 +256,7 @@
             font-weight: 700;
             margin-bottom: 20px%;
             line-height: 1.2;
+            animation: fadeIn 0.8s ease forwards;
         }
 
         .hero-subtitle {
@@ -251,9 +327,64 @@
         }
 
         /* About Section */
+        @keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeRight {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeLeft {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Default state (hidden) */
+.section-title,
+.about-image,
+.about-text{
+    opacity: 0;
+}
+
+.section-title.animate {
+    animation: fadeUp 1s ease forwards;
+}
+
+.about-image.animate {
+    animation: fadeRight 1s ease forwards;
+    animation-delay: 0.3s;
+}
+
+.section-text.animate {
+    animation: fadeLeft 1s ease forwards;
+    animation-delay: 0.6s;
+}
+
         .about {
             padding: 120px 0;
             background: linear-gradient(135deg, #1a1a2e 0%, #0f0f23 100%);
+            animation: fadeIn 0.8s ease forwards;
         }
 
         .section-container {
@@ -271,6 +402,7 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            animation: fadeUp 1s ease forwards;
         }
 
         .about-content {
@@ -283,7 +415,9 @@
         .about-image {
             text-align: center;
             border-radius: 5%;
-            opacity: 0.2;
+            opacity: 0;
+            animation: fadeRight 1s ease forwards;
+            animation-delay: 0.3s;
         }
 
         .about-image img {
@@ -308,6 +442,9 @@
             font-size: 2rem;
             margin-bottom: 20px;
             color: #00abf0;
+            animation: fadeLeft 1s ease forwards;
+            opacity: 0;
+            animation-delay: 0.6s;
         }
 
         .about-text p {
@@ -315,6 +452,9 @@
             line-height: 1.8;
             color: rgba(255, 255, 255, 0.8);
             margin-bottom: 30px;
+            animation: fadeLeft 1s ease forwards;
+            animation-delay: 0.6s;
+            opacity: 0;
         }
 
         /* Services Section */
@@ -555,7 +695,28 @@
             }
         }
 
-        /* Mobile Responsiveness */
+       /* Enhanced Mobile Responsiveness */
+       @media (max-width: 1024px) {
+            .navbar {
+                padding: 15px 30px;
+            }
+            
+            .section-container {
+                padding: 0 30px;
+            }
+            
+            .hero-container {
+                padding: 0 30px;
+                gap: 60px;
+            }
+            
+            .profile-image {
+                width: 350px;
+                height: 350px;
+                margin-left: 0;
+            }
+        }
+
         @media (max-width: 768px) {
             .navbar {
                 padding: 15px 20px;
@@ -565,6 +726,13 @@
                 display: none;
             }
 
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
             .hero-container {
                 grid-template-columns: 1fr;
                 gap: 40px;
@@ -625,6 +793,82 @@
                 font-size: 1.8rem;
             }
         }
+        .portfolio-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 50px;
+            padding-bottom: 30px;
+    }
+    
+    .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+            justify-content: center;
+    }
+
+        .portfolio-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+      width: 400px;   /* control width */
+      height: 400px;  /* control height */
+      cursor: pointer;
+      margin: auto;
+    }
+
+    .project-image {
+      width: 100%;
+      height: 100%; /* katamtamang size */
+      object-fit: cover; /* para puno ang image box */
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .project-image:hover {
+      transform: scale(1.1);
+      filter: brightness(1.0);
+    }
+
+    .portfolio-card-content {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        transform: translateY(100%);
+        opacity: 0;
+        transition: all 0.4s ease-in-out;
+        padding: 20px;
+    }
+
+    .portfolio-card:hover .portfolio-card-content {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    .portfolio-card:hover {
+        transform: translateY(-10px);
+        border-color: rgba(0, 171, 240, 0.5);
+        box-shadow: 0 20px 40px rgba(0, 171, 240, 0.2);
+    }
+
+    .portfolio-card h4 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+
+    .portfolio-card p {
+      font-size: 0.9rem;
+      margin-bottom: 15px;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
     </style>
 </head>
 <body>
@@ -640,6 +884,7 @@
                 <li><a href="#about">ABOUT</a></li>
                 <li><a href="#services">SERVICES</a></li>
                 <li><a href="#skills">SKILLS</a></li>
+                <li><a href="#portfolio">PORTFOLIO</a></li>
                 <li><a href="#contact">CONTACT</a></li>
             </ul>
         </div>
@@ -785,13 +1030,56 @@
         </div>
     </section>
 
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio">
+        <div class="portfolio-container">
+            <h2 class="section-title" style="text-align: center; margin-top:1em;">My Projects</h2>
+           
+            <div class="portfolio-grid">
+                <div class="portfolio-card">
+                    <img src="images/f6322501-1e20-4cbc-97f9-a1edeff506cf.png" alt="Inventory Management System" class="project-image">
+                    
+                         <div class="portfolio-card-content">
+                    <h4>Inventory Management System</h4>
+                    <p>
+                      Is a web-based application designed to help businesses efficiently manage their stock, sales, and suppliers.
+                      It provides real-time tracking of product quantities, automates stock level monitoring, and streamlines reporting for better decision-making.
+                    </p>
+                </div>
+            </div>
+
+            <div class="portfolio-card">
+                <img src="images/4121bd13-50ed-439f-af8e-301bbf13649a.jpg" alt="Mobile Collector System" class="project-image">
+
+                     <div class="portfolio-card-content">
+                <h4>Mobile Collector System</h4>
+                <p>
+                  Is a web-based application designed to help businesses efficiently manage their collections on loans, sharecapital, savings etc.
+                  It is also design to lessen the paper works and to make it easily collecting payments. </p>
+            </div>
+        </div>
+
+        <div class="portfolio-card">
+            <img src="images/water.png" alt="Automated Water Billing System" class="project-image">
+
+                 <div class="portfolio-card-content">
+            <h4>Automated Water Billing System</h4>
+            <p>
+              Is a desktop application designed to help businesses efficiently manage their collections water billing.
+              It is also design to lessen the paper works and to make it easily collecting payments with automated computations. </p>
+        </div>
+    </div>
+        </div>   
+        </div>     
+        </section>
+
     <!-- Contact Section -->
     <section id="contact" class="contact">
         <div class="section-container">
             <div class="contact-content">
                 <h2 class="section-title">Let's Work Together</h2>
-                <p>Ready to bring your ideas to life? Let's collaborate and create something amazing together! Message me on blue app.</p>
-                <a href="https://www.facebook.com/sphinx0224/" class="btn btn-primary">Hire Me</a>
+                <p>Ready to bring your ideas to life? Let's collaborate and create something amazing together!</p>
+                <a href="{{ route('hire-me.index') }}" class="btn btn-primary">Hire Me</a>
             </div>
         </div>
     </section>
@@ -945,29 +1233,67 @@
             type();
         }
 
-        // Initialize typing effect on load
-        window.addEventListener('load', function() {
-            const heroTitle = document.querySelector('.hero-title');
-            if (heroTitle) {
-                const originalText = heroTitle.textContent;
-                typeWriter(heroTitle, originalText, 30);
-            }
-        });
+    const text = "Software Developer";
+    const typewriter = document.getElementById("typewriter");
+    let i = 0;
+    let isDeleting = false;
+    let speed = 150; // typing speed per character
 
-        const text = "Software Developer";
-        const typewriter = document.getElementById("typewriter");
-        let i = 0;
-
-        function typeWriter() {
-        if (i < text.length) {
-        typewriter.innerHTML += text.charAt(i);
-        i++;
-        setTimeout(typeWriter, 300); // Adjust speed here (100ms per character)
-            }
+    function typeEffect() {
+        if (!isDeleting && i < text.length) {
+            // Add letters
+            typewriter.innerHTML = text.substring(0, i + 1);
+            i++;
+            speed = 150;
+        } 
+        else if (isDeleting && i > 0) {
+            // Remove letters
+            typewriter.innerHTML = text.substring(0, i - 1);
+            i--;
+            speed = 100;
         }
 
-        // Start typing when page loads
-        window.addEventListener('load', typeWriter);
+        if (i === text.length && !isDeleting) {
+            // Word is fully typed, now pause before deleting
+            isDeleting = true;
+            speed = 1000; 
+        } 
+        else if (i === 0 && isDeleting) {
+            // Word is fully deleted, pause before typing again
+            isDeleting = false;
+            speed = 500;
+        }
+
+        setTimeout(typeEffect, speed);
+    }
+
+    // Start immediately
+    typeEffect();
+
+    document.addEventListener("DOMContentLoaded", () => {
+  const aboutElements = document.querySelectorAll(
+    ".section-title, .about-image, .about-text"
+  );
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          // Play animation
+          entry.target.classList.add("animate");
+        } else {
+          // Reset immediately when scrolled out
+          entry.target.classList.remove("animate");
+        }
+      });
+    },
+    {
+      threshold: 0.2, // Trigger when 20% visible
+    }
+  );
+
+  aboutElements.forEach((el) => observer.observe(el));
+});
     </script>
 </body>
 </html>
