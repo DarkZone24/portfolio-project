@@ -14,22 +14,23 @@ RUN apt-get update && apt-get install -y \
 # Enable Apache mod_rewrite for Laravel routing
 RUN a2enmod rewrite
 
-# Install Composer
+# Copy composer first for better caching
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Copy app source code
+# Copy application code
 COPY . .
 
-# Install PHP dependencies (no dev packages)
+# Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader
 
-# Optimize Laravel configuration and routes
-RUN php artisan key:generate && \
-    php artisan config:cache && \
-    php artisan route:cache
+# Set proper permissions for storage and cache
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
+    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Expose HTTP port
+# Do NOT run artisan commands at build time (no .env yet)
+# Instead, run them at container start if needed
+
 EXPOSE 80
 
-# Start Apache (Laravel will be served via Apache, not php artisan serve)
-CMD ["apache2-foreground"]
+# Use Apache to serve the app
+CMD php artisan key:generate --force && apache2-foreground
